@@ -4,11 +4,13 @@ from rest_framework import serializers
 from .models import Answer, Category, Question, Quiz
 
 class AnswerSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Answer
         fields = ("answerText","isRight",)
 
 class QuestionSerializer(serializers.ModelSerializer):
+    answers = AnswerSerializer(many=True,read_only=True)
     class Meta:
         model = Question
         fields =("title","answers","difficulty",)
